@@ -16,7 +16,7 @@ class Pantry {
      this.ingredients.find(ingredient => {
       if (ingredient.name === name) {
        return ingredient.amount += amountToAdd
-     }
+      }
     })
   }
 

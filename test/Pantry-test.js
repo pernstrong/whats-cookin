@@ -129,13 +129,18 @@ describe('User', function() {
       price: 472,
       amount: 1
     },
-    ingredient2 = {
+      ingredient2 = {
       id: 18372,
       name: "bicarbonate of soda",
       price: 582,
       amount: 20
-    }
-  ])
+      }
+    ])
+  })
+
+  // ????
+  it.skip('should be able to tell if it has enough ingredients for a specific recipe', function() {
+
   })
 
 })
