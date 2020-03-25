@@ -14,6 +14,10 @@ describe('User', () => {
   let recipe3;
 
   beforeEach( () => {
+<<<<<<< HEAD
+  
+  })
+=======
     user1 = new User(usersData[0].name, usersData[0].id, usersData[0].pantry);
     user2 = new User(usersData[1].name, usersData[1].id, usersData[1].pantry);
     recipe1 = new Recipe(allRecipes[0].id, allRecipes[0].image, allRecipes[0].ingredients, allRecipes[0].instructions, allRecipes[0].name, allRecipes[0].tags);
@@ -21,6 +25,7 @@ describe('User', () => {
     recipe3 = new Recipe(allRecipes[2].id, allRecipes[2].image, allRecipes[2].ingredients, allRecipes[2].instructions, allRecipes[2].name, allRecipes[2].tags);
     recipe4 = new Recipe(allRecipes[13].id, allRecipes[13].image, allRecipes[13].ingredients, allRecipes[13].instructions, allRecipes[13].name, allRecipes[13].tags);
   });
+>>>>>>> master
 
   it('should be a function', () => {
     expect(User).to.be.a('function');
