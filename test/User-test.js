@@ -74,12 +74,20 @@ describe('User', () => {
     expect(user1.filterByTag('main dish')).to.deep.equal([recipe2, recipe4]);
   });
 
-  it.skip('should be able to search saved recipes by name or ingredient', () => {
+  it('should be able to search saved recipes by name', () => {
     user1.addToFavoriteRecipes(recipe1);
     user1.addToFavoriteRecipes(recipe2);
     user1.addToFavoriteRecipes(recipe3);
     user1.addToFavoriteRecipes(recipe4);
-    expect(user1.searchFavorites('Dirty Steve\'s Original Wing Sauce')).to.deep.equal(recipe3);
+    expect(user1.searchFavorites('Dirty Steve\'s Original Wing Sauce')).to.deep.equal([recipe3]);
+  });
+
+  it('should be able to search saved recipes by ingredient', () => {
+    user1.addToFavoriteRecipes(recipe1);
+    user1.addToFavoriteRecipes(recipe2);
+    user1.addToFavoriteRecipes(recipe3);
+    user1.addToFavoriteRecipes(recipe4);
+    expect(user1.searchFavorites('apple')).to.deep.equal([recipe2]);
   });
 
 })

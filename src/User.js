@@ -35,10 +35,32 @@ class User {
     return result;
   }
 
+  findRecipeByIngredients(searchTerm) {
+    let ingredientId = null;
+    allIngredients.forEach((ingredient, i) => {
+      if (searchTerm === ingredient.name) {
+        ingredientId = ingredient.id;
+      }
+    });
+    let recipeList = [];
+     this.favoriteRecipes.forEach(currentRecipe => {
+      currentRecipe.ingredients.forEach(element => {
+        if (ingredientId === element.id) {
+          recipeList.push(currentRecipe);
+        }
+      });
+    });
+    return recipeList;
+  }
+
   searchFavorites(searchTerm) {
     let result = this.favoriteRecipes.filter(currentRecipe => {
-      return currentRecipe.name === searchTerm || currentRecipe.ingredients
-    })
+      return searchTerm === currentRecipe.name;
+    });
+    if (result.length === 0) {
+      return this.findRecipeByIngredients(searchTerm);
+    }
+    return result;
   }
 }
 
