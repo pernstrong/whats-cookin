@@ -9,16 +9,7 @@ describe('User', () => {
   let user2;
 
   beforeEach( () => {
-    user1 = {
-      id: 12,
-      name: 'Elliot',
-      pantry: []
-    }
-    user2 = {
-      id: 14,
-      name: 'Dave',
-      pantry: [];
-    }
+  
   })
 
   it('should be a function', () => {

@@ -1,24 +1,17 @@
 const chai = require('chai');
 const expect = chai.expect;
-const allIngredients = require('../data/ingredients')
-const allRecipes = require('../data/recipes')
-// const allUsers = require('../data/users')
+const recipeTestData = require('../test/recipe-test-data')
 const Recipe = require('../src/Recipe')
 
 describe('Recipe', () => {
 
-  // let ingredient1;
-  // let ingredient2;
-  // let ingredient3;
-  // let ingredient4;
   let recipe1;
   let recipe2;
 
   beforeEach( () => {
 
-  recipe1 = new Recipe(allRecipes[0].id, allRecipes[0].image, allRecipes[0].ingredients, allRecipes[0].instructions, allRecipes[0].name, allRecipes[0].tags)
-  recipe2 = new Recipe(allRecipes[1].id, allRecipes[1].image, allRecipes[1].ingredients, allRecipes[1].instructions, allRecipes[1].name, allRecipes[1].tags)
-
+  recipe1 = new Recipe(recipeTestData[0].id, recipeTestData[0].image, recipeTestData[0].ingredients, recipeTestData[0].instructions, recipeTestData[0].name, recipeTestData[0].tags)
+  recipe2 = new Recipe(recipeTestData[1].id, recipeTestData[1].image, recipeTestData[1].ingredients, recipeTestData[1].instructions, recipeTestData[1].name, recipeTestData[1].tags)
 
   })
 
@@ -40,8 +33,8 @@ describe('Recipe', () => {
 
   it('should have an image', () => {
 
-    expect(recipe1.image).to.equal("https://spoonacular.com/recipeImages/595736-556x370.jpg")
-    expect(recipe2.image).to.equal("https://spoonacular.com/recipeImages/678353-556x370.jpg")
+    expect(recipe1.image).to.equal("www.elliotskitchen.com/foodimage2")
+    expect(recipe2.image).to.equal("https://www.daveskitchen.com/foodimage")
   })
 
 
@@ -58,14 +51,14 @@ describe('Recipe', () => {
 
   it('should have a name', () => {
 
-    expect(recipe1.name).to.equal('Loaded Chocolate Chip Pudding Cookie Cups')
-    expect(recipe2.name).to.equal('Maple Dijon Apple Cider Grilled Pork Chops')
+    expect(recipe1.name).to.equal('Elliots Magical Cookies')
+    expect(recipe2.name).to.equal('Dave\'s Food For the Mouth')
   })
 
   it('should have tag(s)', () => {
 
-    expect(recipe1.tags).to.deep.equal(["antipasti", "starter", "snack", "appetizer", "antipasto","hor d'oeuvre"])
-    expect(recipe2.tags).to.deep.equal(["lunch", "main course", "main dish", "dinner"])
+    expect(recipe1.tags).to.deep.equal(["antipasti", "cookie", "snack"])
+    expect(recipe2.tags).to.deep.equal(["food", "main course", "dinner", "not healthy"])
   })
 
   it('should return its instructions', () => {

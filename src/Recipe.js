@@ -26,6 +26,7 @@ class Recipe {
         }
       })
     })
+    console.log(totalCost)
     return totalCost;
   }
 }

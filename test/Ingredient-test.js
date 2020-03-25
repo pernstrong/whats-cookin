@@ -1,6 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const allIngredients = require('../data/ingredients')
+const ingredientTestData = require('../test/ingredient-test-data')
 const Ingredient = require('../src/Ingredient')
 
 
@@ -13,9 +13,9 @@ describe('Ingredient', () => {
 
   beforeEach( () => {
 
-    ingredient1 = new Ingredient(allIngredients[0].id, allIngredients[0].name, allIngredients[0].estimatedCostInCents)
-    ingredient2 = new Ingredient(allIngredients[1].id, allIngredients[1].name, allIngredients[1].estimatedCostInCents)
-    ingredient3 = new Ingredient(allIngredients[2].id, allIngredients[2].name, allIngredients[2].estimatedCostInCents)
+    ingredient1 = new Ingredient(ingredientTestData[0].id, ingredientTestData[0].name, ingredientTestData[0].estimatedCostInCents)
+    ingredient2 = new Ingredient(ingredientTestData[1].id, ingredientTestData[1].name, ingredientTestData[1].estimatedCostInCents)
+    ingredient3 = new Ingredient(ingredientTestData[2].id, ingredientTestData[2].name, ingredientTestData[2].estimatedCostInCents)
   })
 
   it('should be a function', () => {
@@ -30,20 +30,20 @@ describe('Ingredient', () => {
 
   it('should have an id', () => {
 
-    expect(ingredient1.id).to.equal(20081);
-    expect(ingredient2.id).to.equal(18372);
+    expect(ingredient1.id).to.equal(20);
+    expect(ingredient2.id).to.equal(5280);
   })
 
   it('should have a name', () => {
 
-    expect(ingredient2.name).to.equal('bicarbonate of soda');
-    expect(ingredient3.name).to.equal('eggs')
+    expect(ingredient2.name).to.equal('baking soda');
+    expect(ingredient3.name).to.equal('pre birds')
   })
 
   it('should have a price', () => {
 
-    expect(ingredient1.price).to.equal(142);
-    expect(ingredient3.price).to.equal(472)
+    expect(ingredient1.price).to.equal(10);
+    expect(ingredient3.price).to.equal(1492)
   })
 
 })
