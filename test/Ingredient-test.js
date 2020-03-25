@@ -3,10 +3,7 @@ const expect = chai.expect;
 const ingredientTestData = require('../test/ingredient-test-data')
 const Ingredient = require('../src/Ingredient')
 
-
-// trying with arro
 describe('Ingredient', () => {
-
   let ingredient1;
   let ingredient2;
   let ingredient3;
@@ -19,14 +16,12 @@ describe('Ingredient', () => {
   })
 
   it('should be a function', () => {
-
-    expect(Ingredient).to.be.a('function')
-  })
+    expect(Ingredient).to.be.a('function');
+  });
 
   it('should be an instance of Ingredient', () => {
-
-    expect(ingredient1).to.be.an.instanceof(Ingredient)
-  })
+    expect(ingredient1).to.be.an.instanceof(Ingredient);
+  });
 
   it('should have an id', () => {
 
