@@ -109,6 +109,8 @@ class User {
         })
       }
 
+      
+
 
     findIngredientsNeeded = (recipe) => {
       const recipeAmounts = this.findRecipeIdsAndAmounts(recipe)
