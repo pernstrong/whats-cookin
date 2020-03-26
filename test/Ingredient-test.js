@@ -25,20 +25,20 @@ describe('Ingredient', () => {
 
   it('should have an id', () => {
 
-    expect(ingredient1.id).to.equal(20);
-    expect(ingredient2.id).to.equal(5280);
+    expect(ingredient1.id).to.equal(20081);
+    expect(ingredient2.id).to.equal(18372);
   })
 
   it('should have a name', () => {
 
-    expect(ingredient2.name).to.equal('baking soda');
-    expect(ingredient3.name).to.equal('pre birds')
+    expect(ingredient2.name).to.equal('bicarbonate of soda');
+    expect(ingredient3.name).to.equal('eggs')
   })
 
   it('should have a price', () => {
 
-    expect(ingredient1.price).to.equal(10);
-    expect(ingredient3.price).to.equal(1492)
+    expect(ingredient1.price).to.equal(142);
+    expect(ingredient3.price).to.equal(472)
   })
 
 })

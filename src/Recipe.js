@@ -16,17 +16,18 @@ class Recipe {
   }
 
   findTotalCost = () => {
-    let totalCost = 0;
-    this.ingredients.forEach(currentIngredient => {
-      allIngredients.forEach(ingredient => {
-        if (currentIngredient.id === ingredient.id) {
-          totalCost += (ingredient.estimatedCostInCents * currentIngredient.quantity.amount);
-        }
+      let totalCost = 0;
+      this.ingredients.forEach(currentIngredient => {
+        allIngredients.forEach(ingredient => {
+          if (currentIngredient.id === ingredient.id) {
+            totalCost += (ingredient.estimatedCostInCents * currentIngredient.quantity.amount);
+          }
+        });
       });
-    });
-    return totalCost;
+      console.log(totalCost)
+      return totalCost;
+    }
   }
-}
 
 
 if (typeof module !== 'undefined') {

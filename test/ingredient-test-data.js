@@ -1,18 +1,18 @@
 const ingredientTestData = [
   {
-    "id": 20,
-    "name": "yams",
-    "estimatedCostInCents": 10
+    "id": 20081,
+    "name": "wheat flour",
+    "estimatedCostInCents": 142
   },
   {
-    "id": 5280,
-    "name": "baking soda",
+    "id": 18372,
+    "name": "bicarbonate of soda",
     "estimatedCostInCents": 582
   },
   {
-    "id": 23,
-    "name": "pre birds",
-    "estimatedCostInCents": 1492
+    "id": 9003,
+    "name": "eggs",
+    "estimatedCostInCents": 472
   },
 ]
 
