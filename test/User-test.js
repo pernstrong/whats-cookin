@@ -1,7 +1,7 @@
 const chai = require('chai');
 const expect = chai.expect;
 const usersData = require('../test/user-test-data');
-const allRecipes = require('../data/recipes');
+const allRecipes = require('../test/recipe-test-data');
 const User = require('../src/User');
 const Recipe = require('../src/Recipe');
 
@@ -12,6 +12,9 @@ describe('User', () => {
   let recipe1;
   let recipe2;
   let recipe3;
+  let recipe4;
+  let recipe5;
+  let recipe6;
 
   beforeEach( () => {
 
@@ -20,7 +23,9 @@ describe('User', () => {
     recipe1 = new Recipe(allRecipes[0].id, allRecipes[0].image, allRecipes[0].ingredients, allRecipes[0].instructions, allRecipes[0].name, allRecipes[0].tags);
     recipe2 = new Recipe(allRecipes[1].id, allRecipes[1].image, allRecipes[1].ingredients, allRecipes[1].instructions, allRecipes[1].name, allRecipes[1].tags);
     recipe3 = new Recipe(allRecipes[2].id, allRecipes[2].image, allRecipes[2].ingredients, allRecipes[2].instructions, allRecipes[2].name, allRecipes[2].tags);
-    recipe4 = new Recipe(allRecipes[13].id, allRecipes[13].image, allRecipes[13].ingredients, allRecipes[13].instructions, allRecipes[13].name, allRecipes[13].tags);
+    recipe4 = new Recipe(allRecipes[3].id, allRecipes[3].image, allRecipes[3].ingredients, allRecipes[3].instructions, allRecipes[3].name, allRecipes[3].tags);
+    recipe5 = new Recipe(allRecipes[4].id, allRecipes[4].image, allRecipes[4].ingredients, allRecipes[4].instructions, allRecipes[4].name, allRecipes[4].tags);
+    recipe6 = new Recipe(allRecipes[5].id, allRecipes[5].image, allRecipes[5].ingredients, allRecipes[5].instructions, allRecipes[5].name, allRecipes[5].tags);
   });
 
 
@@ -33,6 +38,7 @@ describe('User', () => {
   });
 
   it('should have a name', () => {
+
     expect(user1.name).to.equal('Saige O\'Kon');
     expect(user2.name).to.equal('Ephraim Goyette');
   });
@@ -50,7 +56,7 @@ describe('User', () => {
   it('should be able to add to their favorite recipes', () => {
     user1.addToFavoriteRecipes(recipe1);
     expect(user1.favoriteRecipes[0]).to.deep.equal(recipe1);
-    expect(user1.favoriteRecipes[0].name).to.deep.equal('Loaded Chocolate Chip Pudding Cookie Cups');
+    expect(user1.favoriteRecipes[0].name).to.deep.equal('Elliots Magical Cookies');
   });
 
   it('should be able to remove a recipe from their favorites', () => {
@@ -92,14 +98,19 @@ describe('User', () => {
     expect(user1.searchFavorites('apple')).to.deep.equal([recipe2]);
   });
 
-  it('should determine whether their pantry has enough ingredients to cook a given meal', () => {
-    // should return true or false
+  it('should let user know if they don\'t have enough ingredients in pantry for meal', () => {
 
-    // method...loop through recipe ingredients and pantry ingredients?
+    expect(user1.checkPantry(recipe1)).to.equal(false);
   })
 
-  it.skip('should determine the amount of ingredients still needed to cook a given meal, based on what\'s in their panty', () => {
-    // if above test fails, it invokes a function to check this?
+  it('should let a user know if their pantry does have enough ingredients to cook a given meal', () => {
+
+    expect(user1.checkPantry(recipe5)).to.equal(true);
+  })
+
+  it('should determine the amount of ingredients still needed to cook a given meal, based on what\'s in their pantry', () => {
+
+    expect(user1.findIngredientsNeeded(recipe6)).to.deep.equal([{id: 14412, amount: 1}, {id: 20090, amount: 5}])
   })
 
 })

@@ -55,7 +55,7 @@ describe('Recipe', () => {
   it('should have tag(s)', () => {
 
     expect(recipe1.tags).to.deep.equal(["antipasti", "cookie", "snack"])
-    expect(recipe2.tags).to.deep.equal(["food", "main course", "dinner", "not healthy"])
+    expect(recipe2.tags).to.deep.equal(["food", "main course", "main dish", "dinner", "not healthy"])
   })
 
   it('should return its instructions', () => {
