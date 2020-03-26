@@ -62,36 +62,72 @@ class User {
     }
     return result;
   }
+
+  checkPantry = (recipe) => {
+
+    const recipeAmounts = recipe.ingredients.reduce((acc, ingredient) => {
+      let idIng = {};
+      idIng['id'] = ingredient.id;
+      idIng['amount'] = ingredient.quantity.amount;
+      acc.push(idIng);
+      return acc;
+    }, [])
+    const pantryAmounts = this.pantry.reduce((acc, curIngredient) => {
+      let idIng = {};
+      idIng['id'] = curIngredient.ingredient;
+      idIng['amount'] = curIngredient.amount;
+      acc.push(idIng);
+      return acc;
+    }, [])
+    const ingredientNumbers = recipeAmounts.reduce((acc, ingredient) => {
+      pantryAmounts.forEach(ing => {
+        if (ing.id === ingredient.id && ing.amount >= ingredient.amount) {
+          acc.push(1)
+        }
+      })
+      return acc
+      }, [])
+      if (recipeAmounts.length === ingredientNumbers.length) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    findIngredientsNeeded = (recipe) => {
+      const recipeAmounts = recipe.ingredients.reduce((acc, ingredient) => {
+        let idIng = {};
+        idIng['id'] = ingredient.id;
+        idIng['amount'] = ingredient.quantity.amount;
+        acc.push(idIng);
+        return acc;
+      }, [])
+      const pantryAmounts = this.pantry.reduce((acc, curIngredient) => {
+        let idIng = {};
+        idIng['id'] = curIngredient.ingredient;
+        idIng['amount'] = curIngredient.amount;
+        acc.push(idIng);
+        return acc;
+      }, [])
+      // console.log(recipeAmounts)
+      // console.log(pantryAmounts)
+
+      return recipeAmounts.reduce((acc, ingredient) => {
+        pantryAmounts.forEach(ing => {
+          if (ing.id === ingredient.id || ing.amount < ingredient.amount) {
+            let idIng = {};
+            console.log(idIng)
+            idIng['id'] = ingredient.id;
+            idIng['amount'] = ingredient.amount - ing.amount;
+            acc.push(idIng)
+            console.log(idIng)
+          }
+        })
+        return acc;
+      }, [])
+    }
 }
 
-
-
-// addToIngredient = (name, amountToAdd) =>{
-//    this.ingredients.find(ingredient => {
-//     if (ingredient.name === name) {
-//      return ingredient.amount += amountToAdd
-//     }
-//   })
-// }
-//
-// useIngredient = (name, amountToUse) => {
-//   let curIngredient = null;
-//   let curIndex = null;
-//   this.ingredients.find((ingredient, index) => {
-//     if (ingredient.name === name) {
-//       ingredient.amount -= amountToUse
-//       curIngredient = ingredient;
-//       curIndex = index
-//     }
-//   })
-//   this.removeIngredientIfUsedUp(curIngredient, curIndex)
-// }
-//
-// removeIngredientIfUsedUp = (ingredient, index) => {
-//   if (ingredient.amount <= 0) {
-//     this.ingredients.splice(index, 1)
-//   }
-// }
 
 if (typeof module !== 'undefined') {
   module.exports = User;
