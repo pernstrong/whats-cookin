@@ -6,7 +6,7 @@ console.log('Hello world');
 
 
 console.log(ingredientsData)
-
+console.log(usersData)
 
 
 
