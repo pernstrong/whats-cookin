@@ -5,9 +5,9 @@ console.log('Hello world');
 
 
 
-console.log(ingredients)
+console.log(ingredientsData)
 
-  
+
 
 
 
