@@ -1,11 +1,23 @@
-console.log('Hello world');
-// const users = require('../data/users')
-// const users1 = users.usersData
-// const recipes = require('../data/recipes')
+// populate recipe
+// when a user clicks on a recipe card, figure out how to display full recipe
+const recipeDisplay = document.querySelector('.recipe-list');
+
+window.onload = populateRecipes();
+
+function populateRecipes() {
+  recipeData.forEach((recipe, i) => {
+    recipeDisplay.insertAdjacentHTML('beforeend',
+    `
+    <div class="recipe">
+      <img src="${recipe.image}">
+      <p>${recipe.name}</p>
+    </div>
+    `)
+  });
+
+}
 
 
-
-console.log(ingredientsData)
 
 
 
