@@ -1,6 +1,6 @@
 const chai = require('chai');
 const expect = chai.expect;
-const usersData = require('../data/users');
+const usersData = require('../test/user-test-data');
 const allRecipes = require('../data/recipes');
 const User = require('../src/User');
 const Recipe = require('../src/Recipe');
@@ -91,5 +91,15 @@ describe('User', () => {
     user1.addToFavoriteRecipes(recipe4);
     expect(user1.searchFavorites('apple')).to.deep.equal([recipe2]);
   });
+
+  it('should determine whether their pantry has enough ingredients to cook a given meal', () => {
+    // should return true or false
+
+    // method...loop through recipe ingredients and pantry ingredients?
+  })
+
+  it.skip('should determine the amount of ingredients still needed to cook a given meal, based on what\'s in their panty', () => {
+    // if above test fails, it invokes a function to check this?
+  })
 
 })
