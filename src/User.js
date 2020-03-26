@@ -38,7 +38,7 @@ class User {
   findRecipeByIngredients(searchTerm) {
     let ingredientId = null;
     allIngredients.forEach((ingredient, i) => {
-      if (searchTerm === ingredient.name) {
+      if (searchTerm.includes(ingredient.name)) {
         ingredientId = ingredient.id;
       }
     });
@@ -55,7 +55,7 @@ class User {
 
   searchFavorites(searchTerm) {
     let result = this.favoriteRecipes.filter(currentRecipe => {
-      return searchTerm === currentRecipe.name;
+        return currentRecipe.name.includes(searchTerm);
     });
     if (result.length === 0) {
       return this.findRecipeByIngredients(searchTerm);
@@ -64,21 +64,8 @@ class User {
   }
 
   checkPantry = (recipe) => {
-
-    const recipeAmounts = recipe.ingredients.reduce((acc, ingredient) => {
-      let idIng = {};
-      idIng['id'] = ingredient.id;
-      idIng['amount'] = ingredient.quantity.amount;
-      acc.push(idIng);
-      return acc;
-    }, [])
-    const pantryAmounts = this.pantry.reduce((acc, curIngredient) => {
-      let idIng = {};
-      idIng['id'] = curIngredient.ingredient;
-      idIng['amount'] = curIngredient.amount;
-      acc.push(idIng);
-      return acc;
-    }, [])
+    const recipeAmounts = this.findRecipeIdsAndAmounts(recipe)
+    const pantryAmounts = this.findPantryIdsAndAmounts(recipe)
     const ingredientNumbers = recipeAmounts.reduce((acc, ingredient) => {
       pantryAmounts.forEach(ing => {
         if (ing.id === ingredient.id && ing.amount >= ingredient.amount) {
@@ -94,36 +81,62 @@ class User {
       }
     }
 
-    findIngredientsNeeded = (recipe) => {
-      const recipeAmounts = recipe.ingredients.reduce((acc, ingredient) => {
-        let idIng = {};
-        idIng['id'] = ingredient.id;
-        idIng['amount'] = ingredient.quantity.amount;
-        acc.push(idIng);
-        return acc;
-      }, [])
-      const pantryAmounts = this.pantry.reduce((acc, curIngredient) => {
+    findRecipeIdsAndAmounts = (recipe) => {
+      return recipe.ingredients.reduce((acc, ingredient) => {
+          let idIng = {};
+          idIng['id'] = ingredient.id;
+          idIng['amount'] = ingredient.quantity.amount;
+          acc.push(idIng);
+          return acc;
+        }, [])
+      }
+
+    findPantryIdsAndAmounts = (recipe) => {
+      return this.pantry.reduce((acc, curIngredient) => {
         let idIng = {};
         idIng['id'] = curIngredient.ingredient;
         idIng['amount'] = curIngredient.amount;
         acc.push(idIng);
         return acc;
       }, [])
-      // console.log(recipeAmounts)
-      // console.log(pantryAmounts)
+    }
 
-      return recipeAmounts.reduce((acc, ingredient) => {
-        pantryAmounts.forEach(ing => {
-          if (ing.id === ingredient.id || ing.amount < ingredient.amount) {
-            let idIng = {};
-            console.log(idIng)
-            idIng['id'] = ingredient.id;
-            idIng['amount'] = ingredient.amount - ing.amount;
-            acc.push(idIng)
-            console.log(idIng)
-          }
+    createArrayOfIngredientsHaveAndNeeded = (recipeAmounts, pantryAmounts) => {
+      return recipeAmounts.map(recipeIngredient => {
+        return pantryAmounts.find(pantryIngredient => {
+          return (pantryIngredient.id === recipeIngredient.id)
+          })
         })
-        return acc;
+      }
+
+
+    findIngredientsNeeded = (recipe) => {
+      const recipeAmounts = this.findRecipeIdsAndAmounts(recipe)
+      const pantryAmounts = this.findPantryIdsAndAmounts(recipe)
+      const ingredientsHaveAndNeeded = this.createArrayOfIngredientsHaveAndNeeded(recipeAmounts, pantryAmounts)
+      const ingredientAndDifference = ingredientsHaveAndNeeded.reduce((acc, recipeIngredient, i) => {
+        if (recipeIngredient === undefined) {
+          let amountNeeded = {};
+          amountNeeded['id'] = recipeAmounts[i].id;
+          amountNeeded['amount'] = recipeAmounts[i].amount
+          acc.push(amountNeeded)
+        } else {
+          recipeAmounts.forEach(ingredient => {
+            if (recipeIngredient.id === ingredient.id) {
+              let amountNeeded = {};
+              amountNeeded['id'] = ingredient.id;
+              amountNeeded['amount'] = ingredient.amount - recipeIngredient.amount
+              acc.push(amountNeeded)
+            }
+          })
+        }
+        return acc
+      }, [])
+      return ingredientAndDifference.reduce((acc, ingredient) => {
+        if (ingredient.amount > 0) {
+          acc.push(ingredient)
+        }
+        return acc
       }, [])
     }
 }
