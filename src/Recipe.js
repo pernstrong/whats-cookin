@@ -1,5 +1,11 @@
-const allIngredients = require('../data/ingredients');
-const allRecipes = require('../data/recipes');
+let allRecipes;
+let allIngredients
+if (typeof module !== 'undefined') {
+  allIngredients = require('../data/ingredients');
+  allRecipes = require('../data/recipes');
+} else {
+  allRecipes = recipeData;
+}
 
 class Recipe {
   constructor(id, image, ingredients, instructions, name, tags) {
