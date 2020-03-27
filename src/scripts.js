@@ -1,11 +1,8 @@
 console.log('Hello world');
-// const users = require('../data/users')
-// const users1 = users.usersData
-// const recipes = require('../data/recipes')
 
 
 
-console.log(ingredientsData)
+
 
 
 
