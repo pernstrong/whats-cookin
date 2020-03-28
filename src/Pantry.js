@@ -1,8 +1,3 @@
-// need all three for this class???
-const allIngredients = require('../data/ingredients');
-const allRecipes = require('../data/recipes');;
-const allUsers = require('../data/users')
-
 class Pantry {
   constructor(ingredients) {
     this.ingredients = ingredients;
