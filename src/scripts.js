@@ -23,6 +23,8 @@ function findIngredientName(ingredientId) {
 }
 
 function populateRecipes() {
+  clearRecipes();
+
   listOfRecipes.forEach((recipe, i) => {
     recipeDisplay.insertAdjacentHTML('beforeend',
     `
@@ -30,7 +32,7 @@ function populateRecipes() {
       <img src="${recipe.image}">
       <p>${recipe.name}</p>
     </div>
-    `)
+    `);
   });
 }
 
@@ -41,33 +43,35 @@ function displayIngredients(ingr) {
     let unit = currIngr.quantity.unit;
     let ingrListItem = `<li>${amount} ${unit} ${name}</li>`
     acc += ingrListItem;
-    console.log(name);
     return acc;
   }, ``);
-
 }
 
 function displayFullRecipe(e) {
   if (e.target.closest('.recipe')) {
-    // iterate over listOfRecipes and match id
-    // use innerHTML to overwrite HTML with more info on recipe
     let selectedRecipe = listOfRecipes.find(recipe => {
       if (recipe.id === Number(e.target.dataset.id) || recipe.id === Number(e.target.parentNode.dataset.id)) {
         return recipe;
       }
     });
+    contractMenu();
 
     e.target.closest('.recipe').innerHTML = `
       <img src="${selectedRecipe.image}">
       <p>${selectedRecipe.name}</p>
-      <ul>
+      <ul class="ingredients">
         ${displayIngredients(selectedRecipe.ingredients)}
       </ul>
     `;
   }
 }
 
-
+function contractMenu() {
+  document.querySelectorAll('.ingredients').forEach(el => {
+    el.innerHTML = '';
+  });
+  console.log(document.querySelectorAll('.ingredients'));
+}
 
 
 
