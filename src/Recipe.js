@@ -15,11 +15,11 @@ class Recipe {
     this.instructions = instructions;
     this.name = name;
     this.tags = tags;
-  }
+  };
 
   getInstructions = () => {
     return this.instructions;
-  }
+  };
 
   findTotalCost = () => {
       let totalCost = 0;
@@ -32,9 +32,19 @@ class Recipe {
       });
       return totalCost;
     }
-  }
+
+  returnIdAndAmount = () => {
+      return this.ingredients.reduce((acc, ingredient) => {
+        let idIng = {};
+        idIng['id'] = ingredient.id;
+        idIng['amount'] = ingredient.quantity.amount;
+        acc.push(idIng);
+        return acc;
+      }, []);
+    };
+  };
 
 
 if (typeof module !== 'undefined') {
   module.exports = Recipe;
-}
+};

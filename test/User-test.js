@@ -4,6 +4,7 @@ const usersData = require('../test/user-test-data');
 const allRecipes = require('../test/recipe-test-data');
 const User = require('../src/User');
 const Recipe = require('../src/Recipe');
+const Pantry = require('../src/Pantry')
 
 describe('User', () => {
 
@@ -30,6 +31,7 @@ describe('User', () => {
 
 
   it('should be a function', () => {
+
     expect(User).to.be.a('function');
   });
 
@@ -48,9 +50,14 @@ describe('User', () => {
     expect(user2.id).to.equal(2);
   });
 
+  it('should fill the pantry with ingredients', () => {
+
+    expect(user1.pantry).to.be.an.instanceof(Pantry)
+  })
+
   it('should have a pantry containing ingredients', () => {
-    expect(user1.pantry.length).to.equal(36);
-    expect(user2.pantry.length).to.equal(58);
+    expect(user1.pantry.ingredients.length).to.equal(36);
+    expect(user2.pantry.ingredients.length).to.equal(58);
   });
 
   it('should be able to add to their favorite recipes', () => {
@@ -97,20 +104,5 @@ describe('User', () => {
     user1.addToFavoriteRecipes(recipe4);
     expect(user1.searchFavorites('apple')).to.deep.equal([recipe2]);
   });
-
-  it('should let user know if they don\'t have enough ingredients in pantry for meal', () => {
-
-    expect(user1.checkPantry(recipe1)).to.equal(false);
-  })
-
-  it('should let a user know if their pantry does have enough ingredients to cook a given meal', () => {
-
-    expect(user1.checkPantry(recipe5)).to.equal(true);
-  })
-
-  it('should determine the amount of ingredients still needed to cook a given meal, based on what\'s in their pantry', () => {
-
-    expect(user1.findIngredientsNeeded(recipe6)).to.deep.equal([{id: 14412, amount: 1}, {id: 20090, amount: 5}])
-  })
 
 })
