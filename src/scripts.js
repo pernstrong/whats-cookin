@@ -1,17 +1,21 @@
-// populate recipe
-// when a user clicks on a recipe card, figure out how to display full recipe
-
 // variables
 const recipeDisplay = document.querySelector('.recipe-list');
 let listOfRecipes = recipeData.map(recipe => {
   let currentRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
   return currentRecipe;
 });
+let user;
+
+let ingredient = new Ingredient(1, 'apple', 4, 25);
 
 // event listeners
-
 recipeDisplay.addEventListener('click', displayFullRecipe);
 window.onload = populateRecipes();
+
+function createUser() {
+  let randomNum = Math.floor((Math.random() * 49));
+  user = new User(userData[randomNum].name, userData[randomNum].id, userData[randomNum].pantry);
+}
 
 function findIngredientName(ingredientId) {
   let ingrName = ingredientsData.find(ingr => {
@@ -23,14 +27,13 @@ function findIngredientName(ingredientId) {
 }
 
 function populateRecipes() {
-  clearRecipes();
-
   listOfRecipes.forEach((recipe, i) => {
     recipeDisplay.insertAdjacentHTML('beforeend',
     `
     <div data-id="${recipe.id}" class="recipe">
-      <img src="${recipe.image}">
+      <img class="picture" src="${recipe.image}">
       <p>${recipe.name}</p>
+      <img class="checkbox ${recipe.id}" src="../assets/checkbox.svg">
     </div>
     `);
   });
@@ -43,6 +46,16 @@ function displayIngredients(ingr) {
     let unit = currIngr.quantity.unit;
     let ingrListItem = `<li>${amount} ${unit} ${name}</li>`
     acc += ingrListItem;
+    return acc;
+  }, ``);
+}
+
+function displayInstructions(instr) {
+  return instr.reduce((acc, currInstr, i) => {
+    let number = currInstr.number;
+    let instruction = currInstr.instruction;
+    let instrListItem = `<li>${number}: ${instruction}</li>`
+    acc += instrListItem;
     return acc;
   }, ``);
 }
@@ -62,6 +75,10 @@ function displayFullRecipe(e) {
       <ul class="ingredients">
         ${displayIngredients(selectedRecipe.ingredients)}
       </ul>
+      <ul class="instructions">
+        ${displayInstructions(selectedRecipe.instructions)}
+      </ul>
+      <img class="checkbox ${selectedRecipe.id}" src="../assets/checkbox.svg">
     `;
   }
 }
@@ -70,13 +87,23 @@ function contractMenu() {
   document.querySelectorAll('.ingredients').forEach(el => {
     el.innerHTML = '';
   });
-  console.log(document.querySelectorAll('.ingredients'));
+  document.querySelectorAll('.instructions').forEach(el => {
+    el.innerHTML = '';
+  });
 }
 
+function displayFavorites() {
 
+}
 
+// click on checkbox, it finds recipe and adds to favorites
+// changes the checkbox image
+// when
 
-
+// function iterates favs
+// pulls out id save in variable
+// 595736
+// recipe card with the dataset 595736, your checkbox is now active
 
 
 

@@ -1,12 +1,3 @@
-let allRecipes;
-let allIngredients
-if (typeof module !== 'undefined') {
-  allIngredients = require('../data/ingredients');
-  allRecipes = require('../data/recipes');
-} else {
-  allRecipes = recipeData;
-}
-
 class Recipe {
   constructor(id, image, ingredients, instructions, name, tags) {
     this.id = id;

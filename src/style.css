@@ -56,6 +56,11 @@ main {
   width: 300px;
 }
 
+.recipe .checkbox {
+  width: 20px;
+  float: right
+}
+
 .recipe:hover {
 box-shadow: 0 6px 6px rgba(0,0,0,0.23);
 }

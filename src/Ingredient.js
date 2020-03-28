@@ -1,4 +1,8 @@
-const allIngredients = require('../data/ingredients');
+if (typeof module !== 'undefined') {
+  allIngredients = require('../data/ingredients');
+} else {
+  allIngredients = ingredientsData;
+}
 
 class Ingredient {
   constructor(id, quantity, name, price) {

@@ -1,9 +1,18 @@
-const allIngredients = require('../data/ingredients');
-const allRecipes = require('../data/recipes');
-const allUsers = require('../data/users');
-const Recipe = require('../src/Recipe');
-const Pantry = require('../src/Pantry');
-const Ingredient = require('../src/Ingredient');
+  let allUsers;
+  let allIngredients;
+  let allRecipes;
+  if (typeof module !== 'undefined') {
+    Recipe = require('../src/Recipe');
+    Pantry = require('../src/Pantry');
+    Ingredient = require('../src/Ingredient');
+    allUsers = require('../data/users')
+    allIngredients = require('../data/ingredients');
+    allRecipes = require('../data/recipes')
+  } else {
+    allRecipes = recipeData;
+    allIngredients = ingredientsData
+    allUsers = usersData
+  }
 
 class User {
   constructor(name, id, pantry) {
