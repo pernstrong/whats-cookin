@@ -387,6 +387,38 @@ let usersData = [
       }
     ]
   },
+  {
+    "name": "Elliot",
+    "id": 3000,
+    "pantry": [
+      {
+        "ingredient": 20081,
+        "amount": 3
+      },
+      {
+        "ingredient": 18372,
+        "amount": 7
+      }
+    ]
+  },
+  {
+    "name": "Dave",
+    "id": 4000,
+    "pantry": [
+      {
+        "ingredient": 20081,
+        "amount": 3
+      },
+      {
+        "ingredient": 18372,
+        "amount": 5
+      },
+      {
+        "ingredient": 9003,
+        "amount": 7
+      }
+    ]
+  }
 ]
 
 

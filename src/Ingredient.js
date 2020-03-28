@@ -1,14 +1,31 @@
+const allIngredients = require('../data/ingredients');
 
 class Ingredient {
-  constructor(id, name, price, quantity) {
+  constructor(id, quantity, name, price) {
     this.id = id;
+    this.quantity = quantity || null;
     this.name = name;
     this.price = price;
-    this.quantity = quantity || null;
-  }
+  };
 
-}
+  findName = () => {
+      allIngredients.forEach(ingr => {
+      if (this.id === ingr.id) {
+        this.name = ingr.name;
+      }
+    });
+  };
+
+  findPrice = () => {
+      allIngredients.forEach(ingr => {
+      if (this.id === ingr.id) {
+        this.price = ingr.estimatedCostInCents
+      }
+    });
+  };
+
+};
 
 if (typeof module !== 'undefined') {
   module.exports = Ingredient;
-}
+};
