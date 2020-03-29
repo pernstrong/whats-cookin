@@ -9,12 +9,19 @@ let user;
 let ingredient = new Ingredient(1, 'apple', 4, 25);
 
 // event listeners
-recipeDisplay.addEventListener('click', displayFullRecipe);
-window.onload = populateRecipes();
+window.onload = populateRecipes(), createUser();
+recipeDisplay.addEventListener('click', function(e) {
+  if (e.target.matches('.checkbox')) {
+    selectFavoriteRecipe(e)
+  } else if (e.target.closest('.recipe')) {
+    displayFullRecipe(e)
+  }
+});
 
 function createUser() {
   let randomNum = Math.floor((Math.random() * 49));
-  user = new User(userData[randomNum].name, userData[randomNum].id, userData[randomNum].pantry);
+  user = new User(usersData[randomNum].name, usersData[randomNum].id, usersData[randomNum].pantry);
+  return user;
 }
 
 function findIngredientName(ingredientId) {
@@ -29,11 +36,11 @@ function findIngredientName(ingredientId) {
 function populateRecipes() {
   listOfRecipes.forEach((recipe, i) => {
     recipeDisplay.insertAdjacentHTML('beforeend',
-    `
+      `
     <div data-id="${recipe.id}" class="recipe">
       <img class="picture" src="${recipe.image}">
       <p>${recipe.name}</p>
-      <img class="checkbox ${recipe.id}" src="../assets/checkbox.svg">
+      <img class="checkbox" data-id="${recipe.id}" src="../assets/checkbox.svg">
     </div>
     `);
   });
@@ -61,6 +68,7 @@ function displayInstructions(instr) {
 }
 
 function displayFullRecipe(e) {
+  // let recipeDiv = e.target.closest('.recipe')
   if (e.target.closest('.recipe')) {
     let selectedRecipe = listOfRecipes.find(recipe => {
       if (recipe.id === Number(e.target.dataset.id) || recipe.id === Number(e.target.parentNode.dataset.id)) {
@@ -68,7 +76,14 @@ function displayFullRecipe(e) {
       }
     });
     contractMenu();
-
+    let image;
+    console.log(e.target.classList)
+    if (e.target.closest('.recipe').classList.contains('selected')) {
+      image = "../assets/checkbox-active.svg"
+    } else {
+      image = "../assets/checkbox.svg"
+    }
+    console.log(image)
     e.target.closest('.recipe').innerHTML = `
       <img src="${selectedRecipe.image}">
       <p>${selectedRecipe.name}</p>
@@ -78,7 +93,7 @@ function displayFullRecipe(e) {
       <ul class="instructions">
         ${displayInstructions(selectedRecipe.instructions)}
       </ul>
-      <img class="checkbox ${selectedRecipe.id}" src="../assets/checkbox.svg">
+      <img class="checkbox" data-id="${selectedRecipe.id}" src=${image}>
     `;
   }
 }
@@ -93,8 +108,41 @@ function contractMenu() {
 }
 
 function displayFavorites() {
+  // tied to button that hides non-favorited recipe.
+}
+
+function selectFavoriteRecipe(e) {
+  console.log(e.target)
+  // console.log(e.target.dataset.id)
+  // let target = e.target
+  // if (e.target.matches('.checkbox')) {
+    console.log('checkbox')
+    allRecipes.forEach(recipe => {
+      // console.log(typeof recipe.id)
+      // console.log(typeof e.target.dataset.id)
+      if (recipe.id === Number(e.target.dataset.id)) {
+        console.log(e.target.src)
+        if (user.favoriteRecipes.includes(recipe)) {
+          e.target.closest('.recipe').classList.remove('selected')
+          e.target.setAttribute('src', '../assets/checkbox.svg');
+          user.removeFromFavoriteRecipes(recipe)
+          // return '../assets/checkbox.svg'
+        } else {
+          e.target.closest('.recipe').classList.add('selected')
+          // console.log(e.target.closest('.recipe'))
+          e.target.setAttribute('src', '../assets/checkbox-active.svg');
+          user.addToFavoriteRecipes(recipe)
+          // return '../assets/checkbox-active.svg'
+        }
+
+      }
+    })
+  // }
 
 }
+
+
+// set variable/event listener for checkbox.
 
 // click on checkbox, it finds recipe and adds to favorites
 // changes the checkbox image
