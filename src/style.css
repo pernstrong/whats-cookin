@@ -21,6 +21,10 @@ h1 {
   width: 250px;
 }
 
+#searchbar::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
 #header-background {
   height: auto;
   width: 100%;
