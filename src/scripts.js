@@ -1,4 +1,5 @@
 // variables
+const search = document.querySelector('#searchbar');
 const recipeDisplay = document.querySelector('.recipe-list');
 let listOfRecipes = recipeData.map(recipe => {
   let currentRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
@@ -9,7 +10,7 @@ let user;
 let ingredient = new Ingredient(1, 'apple', 4, 25);
 
 // event listeners
-window.onload = populateRecipes(), createUser();
+window.onload =  createUser(), populateRecipes(listOfRecipes);
 recipeDisplay.addEventListener('click', function(e) {
   if (e.target.matches('.checkbox')) {
     selectFavoriteRecipe(e)
@@ -17,6 +18,8 @@ recipeDisplay.addEventListener('click', function(e) {
     displayFullRecipe(e)
   }
 });
+search.addEventListener('keyup', searchFavorites);
+search.addEventListener('click', searchFavorites);
 
 function createUser() {
   let randomNum = Math.floor((Math.random() * 49));
@@ -33,14 +36,20 @@ function findIngredientName(ingredientId) {
   return ingrName.name;
 }
 
-function populateRecipes() {
-  listOfRecipes.forEach((recipe, i) => {
+function populateRecipes(list) {
+  let image;
+  list.forEach((recipe, i) => {
+    if (user.favoriteRecipes.includes(recipe)) {
+      image = "../assets/checkbox-active.svg"
+    } else {
+      image = "../assets/checkbox.svg"
+    }
     recipeDisplay.insertAdjacentHTML('beforeend',
       `
     <div data-id="${recipe.id}" class="recipe">
       <img class="picture" src="${recipe.image}">
       <p>${recipe.name}</p>
-      <img class="checkbox" data-id="${recipe.id}" src="../assets/checkbox.svg">
+      <img class="checkbox" data-id="${recipe.id}" src=${image}>
     </div>
     `);
   });
@@ -68,7 +77,6 @@ function displayInstructions(instr) {
 }
 
 function displayFullRecipe(e) {
-  // let recipeDiv = e.target.closest('.recipe')
   if (e.target.closest('.recipe')) {
     let selectedRecipe = listOfRecipes.find(recipe => {
       if (recipe.id === Number(e.target.dataset.id) || recipe.id === Number(e.target.parentNode.dataset.id)) {
@@ -77,13 +85,11 @@ function displayFullRecipe(e) {
     });
     contractMenu();
     let image;
-    console.log(e.target.classList)
     if (e.target.closest('.recipe').classList.contains('selected')) {
       image = "../assets/checkbox-active.svg"
     } else {
       image = "../assets/checkbox.svg"
     }
-    console.log(image)
     e.target.closest('.recipe').innerHTML = `
       <img src="${selectedRecipe.image}">
       <p>${selectedRecipe.name}</p>
@@ -112,49 +118,39 @@ function displayFavorites() {
 }
 
 function selectFavoriteRecipe(e) {
-  console.log(e.target)
-  // console.log(e.target.dataset.id)
-  // let target = e.target
-  // if (e.target.matches('.checkbox')) {
-    console.log('checkbox')
-    allRecipes.forEach(recipe => {
-      // console.log(typeof recipe.id)
-      // console.log(typeof e.target.dataset.id)
-      if (recipe.id === Number(e.target.dataset.id)) {
-        console.log(e.target.src)
-        if (user.favoriteRecipes.includes(recipe)) {
-          e.target.closest('.recipe').classList.remove('selected')
-          e.target.setAttribute('src', '../assets/checkbox.svg');
-          user.removeFromFavoriteRecipes(recipe)
-          // return '../assets/checkbox.svg'
-        } else {
-          e.target.closest('.recipe').classList.add('selected')
-          // console.log(e.target.closest('.recipe'))
-          e.target.setAttribute('src', '../assets/checkbox-active.svg');
-          user.addToFavoriteRecipes(recipe)
-          // return '../assets/checkbox-active.svg'
-        }
-
+  allRecipes.forEach(recipe => {
+    if (recipe.id === Number(e.target.dataset.id)) {
+      if (user.favoriteRecipes.includes(recipe)) {
+        e.target.closest('.recipe').classList.remove('selected')
+        e.target.setAttribute('src', '../assets/checkbox.svg');
+        user.removeFromFavoriteRecipes(recipe)
+      } else {
+        e.target.closest('.recipe').classList.add('selected')
+        e.target.setAttribute('src', '../assets/checkbox-active.svg');
+        user.addToFavoriteRecipes(recipe)
       }
-    })
-  // }
-
+    }
+  });
 }
 
+function searchFavorites(searchInput) {
+  searchInput = search.value;
+  document.querySelectorAll('.recipe').forEach(item => {
+    item.remove();
+  });
+  populateRecipes(user.findRecipeByIngredients(searchInput));
+  if (searchInput === '') {
+    populateRecipes(allRecipes);
+  }
+}
 
-// set variable/event listener for checkbox.
-
-// click on checkbox, it finds recipe and adds to favorites
-// changes the checkbox image
-// when
-
-// function iterates favs
-// pulls out id save in variable
-// 595736
-// recipe card with the dataset 595736, your checkbox is now active
-
-
-
+// display my pantry
+// update searchFavorites to work with names and tag of recipes
+// make a search function that works all recipes
+// make 2 buttons: one for searchFavorites, one for search all recipes
+// figure out how to check if enough ingredients for recipe (alert window)
+// display cost of recipe ingredients
+// recipes to cook implementation
 
 
 // randomized recipe for the feature?
