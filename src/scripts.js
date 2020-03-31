@@ -9,10 +9,8 @@ const myPantryButton = document.querySelector('.display-pantry-button')
 const pantryDisplaySection = document.querySelector('.pantry-display-section')
 let user;
 
-// let ingredient = new Ingredient(1, 'apple', 4, 25);
-
 // event listeners
-window.onload =  createUser(), populateRecipes(listOfRecipes);
+window.onload = createUser(), populateRecipes(listOfRecipes);
 recipeDisplay.addEventListener('click', function(e) {
   if (e.target.matches('.checkbox')) {
     selectFavoriteRecipe(e)
@@ -179,19 +177,10 @@ function searchFavorites(searchInput) {
 
 
 
-
-
-
-
-
-
-
-
-
 // display pantry
 function displayPantry() {
   myPantryButton.classList.toggle('pantry-active')
-    if (myPantryButton.classList.contains('pantry-active')) {
+  if (myPantryButton.classList.contains('pantry-active')) {
     pantryDisplaySection.innerHTML = `
       <h2>My Pantry</h2>
       <ul class='pantry-ingredients'>
@@ -214,8 +203,7 @@ function displayPantryIngredients(ingr) {
   }, ``);
 }
 
-
-function checkPantry(e)  {
+function checkPantry(e) {
   let selectedRecipe = findSelectedRecipe(e)
   if (user.pantry.checkPantry(selectedRecipe)) {
     window.alert(`Yes, you have enough ingredients in the pantry to make ${selectedRecipe.name}`)
@@ -242,8 +230,6 @@ function findIngredientNameById(id) {
   })
   return ingredientName;
 }
-
-
 
 function addRecipeToCook(e) {
   let selectedRecipe = findSelectedRecipe(e)
