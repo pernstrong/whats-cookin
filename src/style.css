@@ -26,9 +26,44 @@ h1 {
 }
 
 #header-background {
-  height: auto;
+  /* height: auto; */
+  height: 500px;
   width: 100%;
 }
+
+button {
+  cursor: pointer;
+  /* display: inline-block; */
+}
+/* pantry display */
+
+.display-pantry-button {
+  margin-left: 40%;
+  padding: 1%;
+  border-radius:5px;
+  font-size: 16px;
+}
+
+.pantry-display-section {
+  z-index: 1;
+  position: absolute;
+  display: inline-block;
+  left: 50%;
+  top: 12%;
+  background-color: white;
+  width: 45%;
+  box-shadow: 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.pantry-active {
+  background-color: lightblue;
+}
+
+.pantry-ingredients li {
+  padding-left: 1%;;
+  display: inline-block;
+}
+
 
 /* main */
 
@@ -62,9 +97,43 @@ main {
 
 .recipe .checkbox {
   width: 20px;
-  float: right
+  /* float: right; */
+  margin-right: 5%;
+  /* display: inline-block; */
+}
+
+.add-favorite-section {
+  width: 100%;
+  display: inline-flex;;
+  float: right;
+  /* margin-right: 15%; */
+}
+
+.add-favorite-section p {
+  margin-right: 1%;
+  cursor: default;
+}
+
+.add-favorite-section button {
+  background-color: #FFF;
+  margin: 5%;
 }
 
 .recipe:hover {
 box-shadow: 0 6px 6px rgba(0,0,0,0.23);
+cursor: pointer;
 }
+
+
+.recipe ul,
+.recipe ol {
+  text-align: left;
+  list-style-type: circle;
+}
+
+
+
+
+
+
+d?
