@@ -41,7 +41,14 @@ function findIngredientName(ingredientId) {
   return ingrName.name;
 }
 
+function clearDisplay() {
+  document.querySelectorAll('.recipe').forEach(item => {
+    item.remove();
+  });
+}
+
 function populateRecipes(list) {
+  clearDisplay();
   let image;
   list.forEach((recipe, i) => {
     if (user.favoriteRecipes.includes(recipe)) {
@@ -91,6 +98,14 @@ function displayFullRecipe(e) {
     let selectedRecipe = findSelectedRecipe(e)
     contractMenu();
     let image;
+    document.querySelectorAll('.recipe').forEach(item => {
+      user.favoriteRecipes.forEach(recipe => {
+        if (Number(item.dataset.id) === recipe.id) {
+          item.classList.add('selected');
+        }
+      });
+
+    });
     if (e.target.closest('.recipe').classList.contains('selected')) {
       image = "../assets/checkbox-active.svg"
     } else {
@@ -128,10 +143,6 @@ function contractMenu() {
   })
 }
 
-function displayFavorites() {
-  // tied to button that hides non-favorited recipe.
-}
-
 function selectFavoriteRecipe(e) {
   allRecipes.forEach(recipe => {
     if (recipe.id === Number(e.target.dataset.id)) {
@@ -150,17 +161,23 @@ function selectFavoriteRecipe(e) {
 
 function searchFavorites(searchInput) {
   searchInput = search.value;
+  clearDisplay();
+  if (!user.searchFavorites(searchInput)) {
+    populateRecipes(user.findRecipeByIngredients(searchInput));
+  } else {
+    populateRecipes(user.searchFavorites(searchInput));
+  }
   document.querySelectorAll('.recipe').forEach(item => {
-    item.remove();
+    item.classList.add('selected');
   });
-  populateRecipes(user.findRecipeByIngredients(searchInput));
   if (searchInput === '') {
     populateRecipes(allRecipes);
   }
 }
 
+function searchAllRecipes() {
 
-
+}
 // update searchFavorites to work with names and tag of recipes
 // make a search function that works all recipes
 // make 2 buttons: one for searchFavorites, one for search all recipes
