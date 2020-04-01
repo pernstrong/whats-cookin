@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8">
@@ -8,20 +8,19 @@
 </head>
 
 <body>
-  <header id="header">
+  <header>
     <h1>Whats Cookin'</h1>
-    <button class="display-pantry-button">My Pantry</button>
-    <section class="pantry-display-section">
-  </section>
-  <section class="filter-section">
-    <p class='filter-paragraph'>Filter Recipe by Type</p>
-    <select class="filter-dropdown" role="Filter Recipe by Type"></select>
-    <button class="filter-by-type">Filter!</button>
-    <button class="clear-filter">Clear</button>
-  </section>
-
-  <input id="searchbar" type="search" name="" placeholder="Search my favorite recipes">
-    <img id="header-background" src="../assets/background.jpg" alt="">
+    <div class="search">
+      <button class="display-pantry-button" type="button" name="button">My Pantry</button>
+      <input id="searchbar" type="search" name="" placeholder="Search my favorite recipes">
+      <button id="search-all" type="button" name="button">Search All Recipes</button>
+      <button id="search-favorites" type="button" name="button">Search Favorites</button>
+    </div>
+    <div class="background-image">
+      <section class="pantry-display-section">
+      </section>
+      <img id="header-background" src="../assets/background.jpg" alt="">
+    </div>
   </header>
   <main>
     <section class="recipe-list">
