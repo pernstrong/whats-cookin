@@ -1,18 +1,18 @@
-  let allUsers;
-  let allIngredients;
-  let allRecipes;
-  if (typeof module !== 'undefined') {
-    Recipe = require('../src/Recipe');
-    Pantry = require('../src/Pantry');
-    Ingredient = require('../src/Ingredient');
-    allUsers = require('../data/users')
-    allIngredients = require('../data/ingredients');
-    allRecipes = require('../data/recipes')
-  } else {
-    allRecipes = recipeData;
-    allIngredients = ingredientsData
-    allUsers = usersData
-  }
+let allUsers;
+let allIngredients;
+let allRecipes;
+if (typeof module !== 'undefined') {
+  Recipe = require('../src/Recipe');
+  Pantry = require('../src/Pantry');
+  Ingredient = require('../src/Ingredient');
+  allUsers = require('../data/users')
+  allIngredients = require('../data/ingredients');
+  allRecipes = require('../data/recipes')
+} else {
+  allRecipes = recipeData;
+  allIngredients = ingredientsData
+  allUsers = usersData
+}
 
 class User {
   constructor(name, id, pantry) {
@@ -21,7 +21,7 @@ class User {
     this.pantry = this.fillPantry(pantry);
     this.favoriteRecipes = [];
     this.recipesToCook = [];
-  };
+  }
 
   fillPantry(pantry) {
     let pantryInfo = pantry.map(el => {
@@ -32,11 +32,11 @@ class User {
     });
     let curPantry = new Pantry(pantryInfo);
     return curPantry;
-  };
+  }
 
   addToFavoriteRecipes(recipe) {
     this.favoriteRecipes.push(recipe);
-  };
+  }
 
   removeFromFavoriteRecipes(recipe) {
     this.favoriteRecipes.forEach((currentRecipe, i) => {
@@ -44,22 +44,28 @@ class User {
         this.favoriteRecipes.splice(i, 1);
       }
     });
-  };
+  }
 
   addToRecipesToCook(recipe) {
     this.recipesToCook.push(recipe);
-  };
+  }
 
+  // filterByTag(tag) {
+  //   let result = this.favoriteRecipes.filter(currentRecipe => {
+  //     return currentRecipe.tags.includes(tag);
+  //   });
+  //   return result;
+  // };
   filterByTag(tag) {
     let result = this.favoriteRecipes.filter(currentRecipe => {
       return currentRecipe.tags.includes(tag);
     });
     return result;
-  };
+  }
 
   findRecipeByIngredients(searchTerm) {
     let ingredientId = null;
-    allIngredients.forEach((ingredient, i) => {
+    allIngredients.forEach((ingredient) => {
       if (searchTerm.includes(ingredient.name)) {
         ingredientId = ingredient.id;
       }
@@ -73,7 +79,7 @@ class User {
       });
     });
     return recipeList;
-  };
+  }
 
   searchFavorites(searchTerm) {
     let result = this.favoriteRecipes.filter(currentRecipe => {
@@ -83,11 +89,11 @@ class User {
       return this.findRecipeByIngredients(searchTerm);
     }
     return result;
-  };
+  }
 
-};
+}
 
 
 if (typeof module !== 'undefined') {
-  module.exports = User;
-};
+  module.exports = User
+}

@@ -7,7 +7,11 @@ let listOfRecipes = recipeData.map(recipe => {
 });
 const myPantryButton = document.querySelector('.display-pantry-button')
 const pantryDisplaySection = document.querySelector('.pantry-display-section')
+const filterDisplaySection = document.querySelector('.filter-dropdown')
 let user;
+// const filterRecipeButton = document.querySelector('.filter-by-type')
+// const clearFilterButton = document.querySelector('.clear-filter')
+const header = document.getElementById('header')
 
 // event listeners
 window.onload = createUser(), populateRecipes(listOfRecipes);
@@ -24,7 +28,22 @@ recipeDisplay.addEventListener('click', function(e) {
 });
 search.addEventListener('keyup', searchFavorites);
 search.addEventListener('click', searchFavorites);
-myPantryButton.addEventListener('click', displayPantry)
+// myPantryButton.addEventListener('click', displayPantry)
+// filterDisplaySection.addEventListener('click', displayRecipeTypes)
+// filterRecipeButton.addEventListener('click', filterRecipeByType)
+// clearFilterButton.addEventListener('click', populateRecipes)
+
+header.addEventListener('click', function(e) {
+  if (e.target.matches('.display-pantry-button')) {
+    displayPantry()
+  } else if (e.target.matches('.filter-dropdown')) {
+    displayRecipeTypes()
+  } else if (e.target.matches('.filter-by-type')) {
+    filterRecipeByType()
+  } else if (e.target.matches('.clear-filter')) {
+    populateRecipes(listOfRecipes)
+  }
+})
 
 function createUser() {
   let randomNum = Math.floor((Math.random() * 49));
@@ -50,7 +69,7 @@ function clearDisplay() {
 function populateRecipes(list) {
   clearDisplay();
   let image;
-  list.forEach((recipe, i) => {
+  list.forEach((recipe) => {
     if (user.favoriteRecipes.includes(recipe)) {
       image = "../assets/checkbox-active.svg"
     } else {
@@ -73,7 +92,7 @@ function populateRecipes(list) {
 }
 
 function displayIngredients(ingr) {
-  return ingr.reduce((acc, currIngr, i) => {
+  return ingr.reduce((acc, currIngr) => {
     let name = findIngredientName(currIngr.id);
     let amount = currIngr.quantity.amount;
     let unit = currIngr.quantity.unit;
@@ -84,8 +103,7 @@ function displayIngredients(ingr) {
 }
 
 function displayInstructions(instr) {
-  return instr.reduce((acc, currInstr, i) => {
-    let number = currInstr.number;
+  return instr.reduce((acc, currInstr) => {
     let instruction = currInstr.instruction;
     let instrListItem = `<li> ${instruction}</li>`
     acc += instrListItem;
@@ -114,9 +132,11 @@ function displayFullRecipe(e) {
     e.target.closest('.recipe').innerHTML = `
       <img src="${selectedRecipe.image}">
       <p>${selectedRecipe.name}</p>
+      <p>Ingredients</p>
       <ul class="ingredients">
         ${displayIngredients(selectedRecipe.ingredients)}
       </ul>
+      <p>Instructions</p>
       <ol class="instructions">
         ${displayInstructions(selectedRecipe.instructions)}
       </ol>
@@ -126,7 +146,7 @@ function displayFullRecipe(e) {
       <button class='check-pantry'>Check Pantry</button>
       <button class='meal-to-cook'>Meal To Cook</button>
       </section>
-      <p class="total-cost">Total Cost: $${parseInt(selectedRecipe.findTotalCost() /100)}</p>
+      <p class="total-cost">Total Cost: $${parseInt(selectedRecipe.findTotalCost() / 100)}</p>
     `;
   }
 }
@@ -175,9 +195,7 @@ function searchFavorites(searchInput) {
   }
 }
 
-function searchAllRecipes() {
 
-}
 // update searchFavorites to work with names and tag of recipes
 // make a search function that works all recipes
 // make 2 buttons: one for searchFavorites, one for search all recipes
@@ -211,9 +229,7 @@ function displayPantry() {
 
 function displayPantryIngredients(ingr) {
   // ingr.sort((a, b) => a.name - b.name)
-  return ingr.reduce((acc, currIngr, i) => {
-    // let amount = currIngr.quantity.amount;
-    // let unit = currIngr.quantity.unit;
+  return ingr.reduce((acc, currIngrx) => {
     let ingrListItem = `<strong>${currIngr.name}</strong> = ${currIngr.quantity} &nbsp &nbsp`
     acc += ingrListItem;
     return acc;
@@ -262,6 +278,42 @@ function findSelectedRecipe(e) {
   });
   return selectedRecipe;
 }
+
+function displayRecipeTypes() {
+  const allTags = findRecipeTags();
+  filterDisplaySection.innerHTML = ''
+  allTags.sort((a, b) => a < b)
+  allTags.forEach(tag => {
+    filterDisplaySection.insertAdjacentHTML('beforeend',
+      `<option value="${tag}">${tag}</option>
+    `)
+  })
+}
+
+function findRecipeTags() {
+  return listOfRecipes.reduce((allTags, recipe) => {
+    recipe.tags.forEach(tag => {
+      if (!allTags.includes(tag)) {
+        allTags.push(tag)
+      }
+    })
+    return allTags
+  }, [])
+}
+
+function filterRecipeByType() {
+  const tag = filterDisplaySection.value
+  let recipesByType = allRecipes.filter(currentRecipe => {
+    return currentRecipe.tags.includes(tag);
+  });
+  console.log(recipesByType)
+  populateRecipes(recipesByType)
+}
+
+
+
+
+
 // randomized recipe for the feature?
 // const findFeatureRecipe = () => {
 //   let numOfRecipes = recipesData.length;
