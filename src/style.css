@@ -12,11 +12,18 @@ h1 {
   margin-left: 30px;
 }
 
-#searchbar {
+.search {
+  align-items: baseline;
+  display: flex;
   float: right;
+  justify-content: space-between;
+  margin: 20px 50px;
+  width: 600px;
+}
+
+#searchbar {
+  font-size: 16px;
   height: 35px;
-  margin-right: 150px;
-  margin-top: 30px;
   width: 250px;
 }
 
@@ -25,14 +32,13 @@ h1 {
 }
 
 #header-background {
-  /* height: auto; */
+  display: inline;
   height: 500px;
   width: 100%;
 }
 
 button {
   cursor: pointer;
-  /* display: inline-block; */
 }
 
 /* pantry display */
@@ -52,6 +58,10 @@ button {
   top: 11%;
   width: 45%;
   z-index: 1;
+}
+
+h2 {
+  margin-left: 15px;
 }
 
 .pantry-active {
@@ -132,6 +142,7 @@ main {
 }
 
 .add-favorite-section {
+  width: 100%;
   display: inline-flex;
   ;
   float: right;

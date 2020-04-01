@@ -50,18 +50,12 @@ class User {
     this.recipesToCook.push(recipe);
   }
 
-  // filterByTag(tag) {
-  //   let result = this.favoriteRecipes.filter(currentRecipe => {
-  //     return currentRecipe.tags.includes(tag);
-  //   });
-  //   return result;
-  // };
   filterByTag(tag) {
     let result = this.favoriteRecipes.filter(currentRecipe => {
       return currentRecipe.tags.includes(tag);
     });
     return result;
-  }
+  };
 
   findRecipeByIngredients(searchTerm) {
     let ingredientId = null;
@@ -81,17 +75,17 @@ class User {
     return recipeList;
   }
 
-  searchFavorites(searchTerm) {
-    let result = this.favoriteRecipes.filter(currentRecipe => {
-      return currentRecipe.name.includes(searchTerm);
-    });
-    if (result.length === 0) {
-      return this.findRecipeByIngredients(searchTerm);
+    searchFavorites(searchTerm) {
+      searchTerm = searchTerm.toLowerCase();
+      let result = this.favoriteRecipes.filter(currentRecipe => {
+        return currentRecipe.name.toLowerCase().includes(searchTerm);
+      });
+      if (result.length === 0) {
+        return this.findRecipeByIngredients(searchTerm);
+      }
+      return result;
     }
-    return result;
   }
-
-}
 
 
 if (typeof module !== 'undefined') {
