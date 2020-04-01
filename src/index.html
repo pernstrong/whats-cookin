@@ -10,7 +10,7 @@
 <body>
   <header id="header">
     <h1>Whats Cookin'</h1>
-    <button class="display-pantry-button">My Pantry</button>
+    <!-- <button class="display-pantry-button">My Pantry</button> -->
     <section class="pantry-display-section">
   </section>
   <section class="filter-section">
@@ -18,9 +18,13 @@
     <select class="filter-dropdown" role="Filter Recipe by Type"></select>
     <button class="filter-by-type">Filter!</button>
     <button class="clear-filter">Clear</button>
+    <div class="search">
+     <button class="display-pantry-button" type="button" name="button">My Pantry</button>
+     <input id="searchbar" type="search" name="" placeholder="Search my favorite recipes">
+     <button id="search-all" type="button" name="button">Search All Recipes</button>
+     <button id="search-favorites" type="button" name="button">Search Favorites</button>
+   </div>
   </section>
-
-  <input id="searchbar" type="search" name="" placeholder="Search my favorite recipes">
     <img id="header-background" src="../assets/background.jpg" alt="">
   </header>
   <main>
