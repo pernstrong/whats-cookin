@@ -251,6 +251,7 @@ function searchAllRecipesByIngredients(searchInput) {
 // display pantry
 function displayPantry() {
   myPantryButton.classList.toggle('pantry-active');
+  pantryDisplaySection.classList.toggle('hidden');
   if (myPantryButton.classList.contains('pantry-active')) {
     pantryDisplaySection.innerHTML = `
       <h2>My Pantry</h2>
