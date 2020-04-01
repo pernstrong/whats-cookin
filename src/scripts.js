@@ -9,7 +9,9 @@ let listOfRecipes = recipeData.map(recipe => {
   let currentRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
   return currentRecipe;
 });
+const filterDisplaySection = document.querySelector('.filter-dropdown')
 let user;
+const header = document.getElementById('header')
 
 // event listeners
 window.onload = createUser(), populateRecipes(listOfRecipes);
@@ -24,10 +26,24 @@ recipeDisplay.addEventListener('click', function(e) {
     displayFullRecipe(e);
   }
 });
-searchFavoritesBtn.addEventListener('click', searchFavorites);
-searchAllBtn.addEventListener('click', searchAllRecipes);
-myPantryButton.addEventListener('click', displayPantry);
-search.addEventListener('keyup', repopulate);
+search.addEventListener('keyup', searchFavorites);
+search.addEventListener('click', searchFavorites);
+// myPantryButton.addEventListener('click', displayPantry)
+// filterDisplaySection.addEventListener('click', displayRecipeTypes)
+// filterRecipeButton.addEventListener('click', filterRecipeByType)
+// clearFilterButton.addEventListener('click', populateRecipes)
+
+header.addEventListener('click', function(e) {
+  if (e.target.matches('.display-pantry-button')) {
+    displayPantry()
+  } else if (e.target.matches('.filter-dropdown')) {
+    displayRecipeTypes()
+  } else if (e.target.matches('.filter-by-type')) {
+    filterRecipeByType()
+  } else if (e.target.matches('.clear-filter')) {
+    populateRecipes(listOfRecipes)
+  }
+})
 
 // generate random user
 function createUser() {
@@ -54,7 +70,7 @@ function clearDisplay() {
 function populateRecipes(list) {
   clearDisplay();
   let image;
-  list.forEach((recipe, i) => {
+  list.forEach((recipe) => {
     if (user.favoriteRecipes.includes(recipe)) {
       image = "../assets/checkbox-active.svg"
     } else {
@@ -84,7 +100,7 @@ function repopulate() {
 
 // display ingredients upon click
 function displayIngredients(ingr) {
-  return ingr.reduce((acc, currIngr, i) => {
+  return ingr.reduce((acc, currIngr) => {
     let name = findIngredientName(currIngr.id);
     let amount = currIngr.quantity.amount;
     let unit = currIngr.quantity.unit;
@@ -96,8 +112,7 @@ function displayIngredients(ingr) {
 
 // display ingredients upon click
 function displayInstructions(instr) {
-  return instr.reduce((acc, currInstr, i) => {
-    let number = currInstr.number;
+  return instr.reduce((acc, currInstr) => {
     let instruction = currInstr.instruction;
     let instrListItem = `<li> ${instruction}</li>`
     acc += instrListItem;
@@ -126,9 +141,11 @@ function displayFullRecipe(e) {
     e.target.closest('.recipe').innerHTML = `
       <img src="${selectedRecipe.image}">
       <p>${selectedRecipe.name}</p>
+      <p>Ingredients</p>
       <ul class="ingredients">
         ${displayIngredients(selectedRecipe.ingredients)}
       </ul>
+      <p>Instructions</p>
       <ol class="instructions">
         ${displayInstructions(selectedRecipe.instructions)}
       </ol>
@@ -138,7 +155,7 @@ function displayFullRecipe(e) {
       <button class='check-pantry'>Check Pantry</button>
       <button class='meal-to-cook'>Meal To Cook</button>
       </section>
-      <p class="total-cost">Total Cost: $${parseInt(selectedRecipe.findTotalCost() /100)}</p>
+      <p class="total-cost">Total Cost: $${parseInt(selectedRecipe.findTotalCost() / 100)}</p>
     `;
   }
 }
@@ -288,3 +305,45 @@ function findSelectedRecipe(e) {
   });
   return selectedRecipe;
 }
+
+function displayRecipeTypes() {
+  const allTags = findRecipeTags();
+  filterDisplaySection.innerHTML = ''
+  allTags.sort((a, b) => a < b)
+  allTags.forEach(tag => {
+    filterDisplaySection.insertAdjacentHTML('beforeend',
+      `<option value="${tag}">${tag}</option>
+    `)
+  })
+}
+
+function findRecipeTags() {
+  return listOfRecipes.reduce((allTags, recipe) => {
+    recipe.tags.forEach(tag => {
+      if (!allTags.includes(tag)) {
+        allTags.push(tag)
+      }
+    })
+    return allTags
+  }, [])
+}
+
+function filterRecipeByType() {
+  const tag = filterDisplaySection.value
+  let recipesByType = allRecipes.filter(currentRecipe => {
+    return currentRecipe.tags.includes(tag);
+  });
+  console.log(recipesByType)
+  populateRecipes(recipesByType)
+}
+
+
+
+
+
+// randomized recipe for the feature?
+// const findFeatureRecipe = () => {
+//   let numOfRecipes = recipesData.length;
+//   let randomIndex = Math.floor(Math.random() * numOfRecipes);
+//   console.log(randomIndex)
+// }
