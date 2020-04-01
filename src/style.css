@@ -45,11 +45,13 @@ button {
 .display-pantry-button {
   border-radius: 5px;
   font-size: 16px;
+  margin-left: 30%;
+  padding: 1%;
 }
 
 .pantry-display-section {
-  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: white;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.23);
   display: inline-block;
   left: 50%;
   position: absolute;
@@ -66,13 +68,41 @@ h2 {
   background-color: lightblue;
 }
 
-.pantry-ingredients {
-  column-count: 3;
+.pantry-ingredients li {
+  ;
+  display: inline-block;
+  padding-left: 1%;
 }
 
-.pantry-ingredients li {
-  font-size: 12px;
-  padding-left: 1%;
+/* filter recipe */
+.filter-section {
+  display: inline-block;
+  margin-left: 2%;
+  /* border: 1px solid blue; */
+}
+
+.filter-dropdown {
+  cursor: pointer;
+  /* padding: 0%;
+  margin: 0%; */
+  width: 95%;
+  /* border: 1px solid yellow; */
+}
+
+.filter-dropdown:focus {
+  width: 95%;
+}
+
+.filter-paragraph {
+  font-size: 14px;
+  margin-bottom: 2%;
+  /* border: 1px solid green; */
+}
+
+.filter-section button {
+  display: inline-block;
+  margin: 2% 0%;
+  width: 45%;
 }
 
 /* main */
@@ -105,9 +135,9 @@ main {
 }
 
 .recipe .checkbox {
-  width: 20px;
   /* float: right; */
   margin-right: 5%;
+  width: 20px;
   /* display: inline-block; */
 }
 
@@ -116,12 +146,13 @@ main {
   display: inline-flex;
   ;
   float: right;
+  width: 100%;
   /* margin-right: 15%; */
 }
 
 .add-favorite-section p {
-  margin-right: 1%;
   cursor: default;
+  margin-right: 1%;
 }
 
 .add-favorite-section button {
@@ -134,10 +165,11 @@ main {
   cursor: pointer;
 }
 
-.recipe ul,
-.recipe ol {
-  text-align: left;
+.recipe ul {
   list-style-type: circle;
+  text-align: left;
 }
 
-d?
+.recipe ol {
+  text-align: left;
+}
