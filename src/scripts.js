@@ -30,12 +30,13 @@ recipeDisplay.addEventListener('click', function(e) {
     displayFullRecipe(e);
   }
 });
-searchFavoritesBtn.addEventListener('keyup', searchFavorites);
+search.addEventListener('keyup', repopulate);
 searchAllBtn.addEventListener('click', searchAllRecipes);
-myPantryButton.addEventListener('click', displayPantry);
-filterDisplaySection.addEventListener('click', displayRecipeTypes);
-filterRecipeButton.addEventListener('click', filterRecipeByType);
-clearFilterButton.addEventListener('click', populateRecipes);
+searchFavoritesBtn.addEventListener('click', searchFavorites);
+// myPantryButton.addEventListener('click', displayPantry);
+// filterDisplaySection.addEventListener('click', displayRecipeTypes);
+// filterRecipeButton.addEventListener('click', filterRecipeByType);
+// clearFilterButton.addEventListener('click', populateRecipes);
 
 header.addEventListener('click', function(e) {
   if (e.target.matches('.display-pantry-button')) {
