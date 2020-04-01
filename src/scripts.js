@@ -336,14 +336,3 @@ function filterRecipeByType() {
   console.log(recipesByType)
   populateRecipes(recipesByType)
 }
-
-
-
-
-
-// randomized recipe for the feature?
-// const findFeatureRecipe = () => {
-//   let numOfRecipes = recipesData.length;
-//   let randomIndex = Math.floor(Math.random() * numOfRecipes);
-//   console.log(randomIndex)
-// }
