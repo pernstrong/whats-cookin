@@ -78,7 +78,7 @@ function populateRecipes(list) {
 
 function repopulate() {
   if (search.value == '') {
-    populateRecipes();
+    populateRecipes(listOfRecipes);
   }
 }
 

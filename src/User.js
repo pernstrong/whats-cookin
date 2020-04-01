@@ -76,7 +76,7 @@
     }
 
     searchFavorites(searchTerm) {
-      searchTerm.toLowerCase();
+      searchTerm = searchTerm.toLowerCase();
       let result = this.favoriteRecipes.filter(currentRecipe => {
         return currentRecipe.name.toLowerCase().includes(searchTerm);
       });
