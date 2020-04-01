@@ -6,11 +6,11 @@ class Recipe {
     this.instructions = instructions;
     this.name = name;
     this.tags = tags;
-  };
+  }
 
   getInstructions() {
     return this.instructions;
-  };
+  }
 
   findTotalCost() {
     let totalCost = 0;
@@ -32,10 +32,11 @@ class Recipe {
       acc.push(idIng);
       return acc;
     }, []);
-  };
-};
+  }
+
+}
 
 
 if (typeof module !== 'undefined') {
   module.exports = Recipe;
-};
+}

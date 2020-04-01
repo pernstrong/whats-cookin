@@ -55,7 +55,7 @@ class User {
       return currentRecipe.tags.includes(tag);
     });
     return result;
-  };
+  }
 
   findRecipeByIngredients(searchTerm) {
     let ingredientId = null;
@@ -75,17 +75,17 @@ class User {
     return recipeList;
   }
 
-    searchFavorites(searchTerm) {
-      searchTerm = searchTerm.toLowerCase();
-      let result = this.favoriteRecipes.filter(currentRecipe => {
-        return currentRecipe.name.toLowerCase().includes(searchTerm);
-      });
-      if (result.length === 0) {
-        return this.findRecipeByIngredients(searchTerm);
-      }
-      return result;
+  searchFavorites(searchTerm) {
+    searchTerm = searchTerm.toLowerCase();
+    let result = this.favoriteRecipes.filter(currentRecipe => {
+      return currentRecipe.name.toLowerCase().includes(searchTerm);
+    });
+    if (result.length === 0) {
+      return this.findRecipeByIngredients(searchTerm);
     }
+    return result;
   }
+}
 
 
 if (typeof module !== 'undefined') {

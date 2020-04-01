@@ -38,10 +38,16 @@ h1 {
 }
 
 button {
+  border-radius: 5px;
   cursor: pointer;
+<<<<<<< HEAD
+  font-size: 12px;
+  margin: 20px;
+=======
   margin: 20px;
   border-radius: 5px;
   font-size: 12px;
+>>>>>>> master
 }
 
 /* pantry display */
@@ -139,7 +145,6 @@ main {
 }
 
 .add-favorite-section {
-  width: 100%;
   display: inline-flex;
   float: right;
   width: 100%;
