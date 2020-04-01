@@ -13,7 +13,7 @@ h1 {
 }
 
 .search {
-  align-items: baseline;
+  align-items: center;
   display: flex;
   float: right;
   justify-content: space-between;
@@ -39,19 +39,16 @@ h1 {
 
 button {
   cursor: pointer;
+  margin: 20px;
+  border-radius: 5px;
+  font-size: 12px;
 }
 
 /* pantry display */
-.display-pantry-button {
-  border-radius: 5px;
-  font-size: 16px;
-  margin-left: 30%;
-  padding: 1%;
-}
-
 .pantry-display-section {
   background-color: white;
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.23);
+  column-count: 3;
   display: inline-block;
   left: 50%;
   position: absolute;
@@ -144,10 +141,8 @@ main {
 .add-favorite-section {
   width: 100%;
   display: inline-flex;
-  ;
   float: right;
   width: 100%;
-  /* margin-right: 15%; */
 }
 
 .add-favorite-section p {
