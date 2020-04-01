@@ -3,16 +3,16 @@ class Pantry {
     this.ingredients = ingredients;
   };
 
-  checkPantry = (recipe) => {
+  checkPantry(recipe) {
     const recipeAmounts = recipe.returnIdAndAmount()
     const ingredientNumbers = recipeAmounts.reduce((acc, ingredient) => {
       this.ingredients.forEach(ing => {
         if (ing.id === ingredient.id && ing.quantity >= ingredient.amount) {
           acc.push(1);
         }
-      })
+      });
       return acc;
-    }, [])
+    }, []);
     if (recipeAmounts.length === ingredientNumbers.length) {
       return true;
     } else {
@@ -20,7 +20,7 @@ class Pantry {
     }
   };
 
-  findMissingIngredients = (recipeAmounts) => {
+  findMissingIngredients(recipeAmounts) {
     return recipeAmounts.map(recipeIngredient => {
       return this.ingredients.find(pantryIngredient => {
         return (pantryIngredient.id === recipeIngredient.id);
@@ -28,7 +28,7 @@ class Pantry {
     });
   };
 
-  findIngredientsNeeded = (recipe) => {
+  findIngredientsNeeded(recipe) {
     const recipeAmounts = recipe.returnIdAndAmount();
     const ingredientsHaveAndNeeded = this.findMissingIngredients(recipeAmounts);
     const ingredientAndDifference = ingredientsHaveAndNeeded.reduce((acc, recipeIngredient, i) => {
@@ -56,9 +56,7 @@ class Pantry {
       return acc;
     }, []);
   };
-
 };
-
 
 if (typeof module !== 'undefined') {
   module.exports = Pantry;

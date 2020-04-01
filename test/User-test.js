@@ -4,7 +4,7 @@ const usersData = require('../test/user-test-data');
 const allRecipes = require('../test/recipe-test-data');
 const User = require('../src/User');
 const Recipe = require('../src/Recipe');
-const Pantry = require('../src/Pantry')
+const Pantry = require('../src/Pantry');
 
 describe('User', () => {
 
@@ -29,9 +29,7 @@ describe('User', () => {
     recipe6 = new Recipe(allRecipes[5].id, allRecipes[5].image, allRecipes[5].ingredients, allRecipes[5].instructions, allRecipes[5].name, allRecipes[5].tags);
   });
 
-
   it('should be a function', () => {
-
     expect(User).to.be.a('function');
   });
 
@@ -40,7 +38,6 @@ describe('User', () => {
   });
 
   it('should have a name', () => {
-
     expect(user1.name).to.equal('Saige O\'Kon');
     expect(user2.name).to.equal('Ephraim Goyette');
   });
@@ -51,9 +48,8 @@ describe('User', () => {
   });
 
   it('should fill the pantry with ingredients', () => {
-
-    expect(user1.pantry).to.be.an.instanceof(Pantry)
-  })
+    expect(user1.pantry).to.be.an.instanceof(Pantry);
+  });
 
   it('should have a pantry containing ingredients', () => {
     expect(user1.pantry.ingredients.length).to.equal(36);
@@ -104,5 +100,4 @@ describe('User', () => {
     user1.addToFavoriteRecipes(recipe4);
     expect(user1.searchFavorites('apple')).to.deep.equal([recipe2]);
   });
-
-})
+});

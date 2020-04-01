@@ -12,7 +12,7 @@ class Ingredient {
     this.price = price;
   };
 
-  findName = () => {
+  findName() {
       allIngredients.forEach(ingr => {
       if (this.id === ingr.id) {
         this.name = ingr.name;
@@ -20,10 +20,10 @@ class Ingredient {
     });
   };
 
-  findPrice = () => {
+  findPrice() {
       allIngredients.forEach(ingr => {
       if (this.id === ingr.id) {
-        this.price = ingr.estimatedCostInCents
+        this.price = ingr.estimatedCostInCents;
       }
     });
   };
