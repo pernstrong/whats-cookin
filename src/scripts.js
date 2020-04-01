@@ -1,17 +1,21 @@
-// variables
+// DOM variables
 const search = document.querySelector('#searchbar');
 const recipeDisplay = document.querySelector('.recipe-list');
 const myPantryButton = document.querySelector('.display-pantry-button');
 const pantryDisplaySection = document.querySelector('.pantry-display-section');
 const searchAllBtn = document.querySelector('#search-all');
 const searchFavoritesBtn = document.querySelector('#search-favorites');
+const header = document.querySelector('#header');
+const filterDisplaySection = document.querySelector('.filter-dropdown');
+const clearFilterButton = document.querySelector('.clear-filter');
+const filterRecipeButton = document.querySelector('.filter-by-type');
+
+// variables
 let listOfRecipes = recipeData.map(recipe => {
   let currentRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
   return currentRecipe;
 });
-const filterDisplaySection = document.querySelector('.filter-dropdown')
 let user;
-const header = document.getElementById('header')
 
 // event listeners
 window.onload = createUser(), populateRecipes(listOfRecipes);
@@ -26,24 +30,25 @@ recipeDisplay.addEventListener('click', function(e) {
     displayFullRecipe(e);
   }
 });
-search.addEventListener('keyup', searchFavorites);
-search.addEventListener('click', searchFavorites);
-// myPantryButton.addEventListener('click', displayPantry)
-// filterDisplaySection.addEventListener('click', displayRecipeTypes)
-// filterRecipeButton.addEventListener('click', filterRecipeByType)
-// clearFilterButton.addEventListener('click', populateRecipes)
+search.addEventListener('keyup', repopulate);
+searchAllBtn.addEventListener('click', searchAllRecipes);
+searchFavoritesBtn.addEventListener('click', searchFavorites);
+// myPantryButton.addEventListener('click', displayPantry);
+// filterDisplaySection.addEventListener('click', displayRecipeTypes);
+// filterRecipeButton.addEventListener('click', filterRecipeByType);
+// clearFilterButton.addEventListener('click', populateRecipes);
 
 header.addEventListener('click', function(e) {
   if (e.target.matches('.display-pantry-button')) {
-    displayPantry()
+    displayPantry();
   } else if (e.target.matches('.filter-dropdown')) {
-    displayRecipeTypes()
+    displayRecipeTypes();
   } else if (e.target.matches('.filter-by-type')) {
-    filterRecipeByType()
+    filterRecipeByType();
   } else if (e.target.matches('.clear-filter')) {
-    populateRecipes(listOfRecipes)
+    populateRecipes(listOfRecipes);
   }
-})
+});
 
 // generate random user
 function createUser() {
@@ -67,7 +72,7 @@ function clearDisplay() {
   });
 }
 
-function populateRecipes(list) {
+function populateRecipes(list = listOfRecipes) {
   clearDisplay();
   let image;
   list.forEach((recipe) => {
