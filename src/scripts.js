@@ -1,20 +1,27 @@
-// variables
+// DOM variables
 const search = document.querySelector('#searchbar');
 const recipeDisplay = document.querySelector('.recipe-list');
 const myPantryButton = document.querySelector('.display-pantry-button');
 const pantryDisplaySection = document.querySelector('.pantry-display-section');
 const searchAllBtn = document.querySelector('#search-all');
 const searchFavoritesBtn = document.querySelector('#search-favorites');
+const header = document.querySelector('#header');
+const filterDisplaySection = document.querySelector('.filter-dropdown');
+
+// variables
 let listOfRecipes = recipeData.map(recipe => {
   let currentRecipe = new Recipe(recipe.id, recipe.image, recipe.ingredients, recipe.instructions, recipe.name, recipe.tags);
   return currentRecipe;
 });
-const filterDisplaySection = document.querySelector('.filter-dropdown')
 let user;
-const header = document.getElementById('header')
 
 // event listeners
 window.onload = createUser(), populateRecipes(listOfRecipes);
+search.addEventListener('keyup', repopulate);
+searchAllBtn.addEventListener('click', searchAllRecipes);
+searchFavoritesBtn.addEventListener('click', searchFavorites);
+
+// EP for main area
 recipeDisplay.addEventListener('click', function(e) {
   if (e.target.matches('.checkbox')) {
     selectFavoriteRecipe(e);
@@ -22,28 +29,23 @@ recipeDisplay.addEventListener('click', function(e) {
     checkPantry(e);
   } else if (e.target.matches('.meal-to-cook')) {
     addRecipeToCook(e);
-  } else if (e.target.closest('.recipe')) {
+  } else if (e.target.closest('.recipe') || e.target.closest('.recipe img')) {
     displayFullRecipe(e);
   }
 });
-search.addEventListener('keyup', searchFavorites);
-search.addEventListener('click', searchFavorites);
-// myPantryButton.addEventListener('click', displayPantry)
-// filterDisplaySection.addEventListener('click', displayRecipeTypes)
-// filterRecipeButton.addEventListener('click', filterRecipeByType)
-// clearFilterButton.addEventListener('click', populateRecipes)
 
+// EP for header
 header.addEventListener('click', function(e) {
   if (e.target.matches('.display-pantry-button')) {
-    displayPantry()
+    displayPantry();
   } else if (e.target.matches('.filter-dropdown')) {
-    displayRecipeTypes()
+    displayRecipeTypes();
   } else if (e.target.matches('.filter-by-type')) {
-    filterRecipeByType()
+    filterRecipeByType();
   } else if (e.target.matches('.clear-filter')) {
-    populateRecipes(listOfRecipes)
+    populateRecipes(listOfRecipes);
   }
-})
+});
 
 // generate random user
 function createUser() {
@@ -52,6 +54,7 @@ function createUser() {
   return user;
 }
 
+// find Ingredients name by ID
 function findIngredientName(ingredientId) {
   let ingrName = ingredientsData.find(ingr => {
     if (ingredientId === ingr.id) {
@@ -61,20 +64,24 @@ function findIngredientName(ingredientId) {
   return ingrName.name;
 }
 
+// clear out the main area
 function clearDisplay() {
   document.querySelectorAll('.recipe').forEach(item => {
     item.remove();
   });
 }
 
-function populateRecipes(list) {
+// display all recipes
+function populateRecipes(list = listOfRecipes) {
   clearDisplay();
-  let image;
-  list.forEach((recipe) => {
-    if (user.favoriteRecipes.includes(recipe)) {
-      image = "../assets/checkbox-active.svg"
-    } else {
-      image = "../assets/checkbox.svg"
+  list.forEach(recipe => {
+    let image = "../assets/checkbox.svg"
+    if (user.favoriteRecipes.length > 0) {
+      user.favoriteRecipes.forEach(favRecipe => {
+        if (recipe.id === favRecipe.id) {
+          image = "../assets/checkbox-active.svg"
+        }
+      })
     }
     recipeDisplay.insertAdjacentHTML('beforeend',
       `
@@ -92,8 +99,10 @@ function populateRecipes(list) {
   });
 }
 
+
+// redisplay all recipes
 function repopulate() {
-  if (search.value == '') {
+  if (search.value === '') {
     populateRecipes(listOfRecipes);
   }
 }
@@ -120,7 +129,7 @@ function displayInstructions(instr) {
   }, ``);
 }
 
-//
+// dipslay ingredients and instructions
 function displayFullRecipe(e) {
   if (e.target.closest('.recipe')) {
     let selectedRecipe = findSelectedRecipe(e)
@@ -140,12 +149,12 @@ function displayFullRecipe(e) {
     }
     e.target.closest('.recipe').innerHTML = `
       <img src="${selectedRecipe.image}">
-      <p>${selectedRecipe.name}</p>
-      <p>Ingredients</p>
+      <p class="recipe-name">${selectedRecipe.name}</p>
+      <p class="instructions-p">Ingredients</p>
       <ul class="ingredients">
         ${displayIngredients(selectedRecipe.ingredients)}
       </ul>
-      <p>Instructions</p>
+      <p class="instructions-p">Instructions</p>
       <ol class="instructions">
         ${displayInstructions(selectedRecipe.instructions)}
       </ol>
@@ -160,6 +169,7 @@ function displayFullRecipe(e) {
   }
 }
 
+// collapse ingredients and instructions
 function contractMenu() {
   document.querySelectorAll('.ingredients').forEach(el => {
     el.innerHTML = '';
@@ -170,8 +180,15 @@ function contractMenu() {
   document.querySelectorAll('.total-cost').forEach(el => {
     el.innerHTML = '';
   })
+  document.querySelectorAll('.ingredients-p').forEach(el => {
+    el.innerHTML = '';
+  })
+  document.querySelectorAll('.instructions-p').forEach(el => {
+    el.innerHTML = '';
+  })
 }
 
+// add recipe to user favorites
 function selectFavoriteRecipe(e) {
   allRecipes.forEach(recipe => {
     if (recipe.id === Number(e.target.dataset.id)) {
@@ -188,6 +205,7 @@ function selectFavoriteRecipe(e) {
   });
 }
 
+// search just favorite recipes
 function searchFavorites(searchInput) {
   searchInput = search.value.toLowerCase();
   clearDisplay();
@@ -204,6 +222,7 @@ function searchFavorites(searchInput) {
   }
 }
 
+// search all recipes
 function searchAllRecipes(searchInput) {
   searchInput = search.value.toLowerCase();
   clearDisplay();
@@ -217,6 +236,7 @@ function searchAllRecipes(searchInput) {
   }
 }
 
+// search all recipes by name
 function searchAllRecipesByName(searchInput) {
   searchInput.toLowerCase();
   let result = listOfRecipes.filter(currentRecipe => {
@@ -225,9 +245,10 @@ function searchAllRecipesByName(searchInput) {
   return result;
 }
 
+// search all recipes by ingredient
 function searchAllRecipesByIngredients(searchInput) {
   let ingredientId = null;
-  allIngredients.forEach((ingredient, i) => {
+  allIngredients.forEach((ingredient) => {
     if (searchInput.includes(ingredient.name)) {
       ingredientId = ingredient.id;
     }
@@ -243,7 +264,7 @@ function searchAllRecipesByIngredients(searchInput) {
   return recipeList;
 }
 
-// display pantry
+// display users pantry
 function displayPantry() {
   myPantryButton.classList.toggle('pantry-active');
   if (myPantryButton.classList.contains('pantry-active')) {
@@ -258,15 +279,17 @@ function displayPantry() {
   }
 }
 
+// display ingredients in users pantry
 function displayPantryIngredients(ingr) {
   ingr.sort((a, b) => a.name - b.name);
-  return ingr.reduce((acc, currIngr, i) => {
+  return ingr.reduce((acc, currIngr) => {
     let ingrListItem = `<li><strong>${currIngr.name}</strong> = ${currIngr.quantity}</li>`
     acc += ingrListItem;
     return acc;
   }, ``);
 }
 
+// check to see if pantry has enough ingredients for a given recipe
 function checkPantry(e) {
   let selectedRecipe = findSelectedRecipe(e);
   if (user.pantry.checkPantry(selectedRecipe)) {
@@ -274,23 +297,14 @@ function checkPantry(e) {
   } else {
     const missingIngredients = user.pantry.findIngredientsNeeded(selectedRecipe)
     const listOfMissing = missingIngredients.map(ingredient => {
-      return ` ${ingredient.amount} of ${findIngredientNameById(ingredient.id)}`
+      return ` ${ingredient.amount} of ${findIngredientName(ingredient.id)}`
     });
     window.alert(`You do not have enough ingredients to make ${selectedRecipe.name}.
     You will need the following: ${listOfMissing}`);
   }
 }
 
-function findIngredientNameById(id) {
-  let ingredientName;
-  allIngredients.forEach(ingredient => {
-    if (ingredient.id === id) {
-      ingredientName = ingredient.name;
-    }
-  });
-  return ingredientName;
-}
-
+// add recipe to cook, for future iterations
 function addRecipeToCook(e) {
   let selectedRecipe = findSelectedRecipe(e);
   user.addToRecipesToCook(selectedRecipe);
@@ -306,6 +320,7 @@ function findSelectedRecipe(e) {
   return selectedRecipe;
 }
 
+// display recipe types/tags
 function displayRecipeTypes() {
   const allTags = findRecipeTags();
   filterDisplaySection.innerHTML = ''
@@ -317,6 +332,7 @@ function displayRecipeTypes() {
   })
 }
 
+// find recipes by type/tag
 function findRecipeTags() {
   return listOfRecipes.reduce((allTags, recipe) => {
     recipe.tags.forEach(tag => {
@@ -328,6 +344,7 @@ function findRecipeTags() {
   }, [])
 }
 
+// display recipes by type/tag
 function filterRecipeByType() {
   const tag = filterDisplaySection.value
   let recipesByType = allRecipes.filter(currentRecipe => {
@@ -336,14 +353,3 @@ function filterRecipeByType() {
   console.log(recipesByType)
   populateRecipes(recipesByType)
 }
-
-
-
-
-
-// randomized recipe for the feature?
-// const findFeatureRecipe = () => {
-//   let numOfRecipes = recipesData.length;
-//   let randomIndex = Math.floor(Math.random() * numOfRecipes);
-//   console.log(randomIndex)
-// }

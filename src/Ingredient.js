@@ -10,26 +10,26 @@ class Ingredient {
     this.quantity = quantity || null;
     this.name = name;
     this.price = price;
-  };
+  }
 
   findName() {
-      allIngredients.forEach(ingr => {
+    allIngredients.forEach(ingr => {
       if (this.id === ingr.id) {
         this.name = ingr.name;
       }
     });
-  };
+  }
 
   findPrice() {
-      allIngredients.forEach(ingr => {
+    allIngredients.forEach(ingr => {
       if (this.id === ingr.id) {
         this.price = ingr.estimatedCostInCents;
       }
     });
-  };
+  }
 
-};
+}
 
 if (typeof module !== 'undefined') {
   module.exports = Ingredient;
-};
+}

@@ -14,8 +14,6 @@ describe('User', () => {
   let recipe2;
   let recipe3;
   let recipe4;
-  let recipe5;
-  let recipe6;
 
   beforeEach( () => {
 
@@ -25,8 +23,6 @@ describe('User', () => {
     recipe2 = new Recipe(allRecipes[1].id, allRecipes[1].image, allRecipes[1].ingredients, allRecipes[1].instructions, allRecipes[1].name, allRecipes[1].tags);
     recipe3 = new Recipe(allRecipes[2].id, allRecipes[2].image, allRecipes[2].ingredients, allRecipes[2].instructions, allRecipes[2].name, allRecipes[2].tags);
     recipe4 = new Recipe(allRecipes[3].id, allRecipes[3].image, allRecipes[3].ingredients, allRecipes[3].instructions, allRecipes[3].name, allRecipes[3].tags);
-    recipe5 = new Recipe(allRecipes[4].id, allRecipes[4].image, allRecipes[4].ingredients, allRecipes[4].instructions, allRecipes[4].name, allRecipes[4].tags);
-    recipe6 = new Recipe(allRecipes[5].id, allRecipes[5].image, allRecipes[5].ingredients, allRecipes[5].instructions, allRecipes[5].name, allRecipes[5].tags);
   });
 
   it('should be a function', () => {
